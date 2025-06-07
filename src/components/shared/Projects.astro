@@ -12,7 +12,7 @@ const projects: Project[] = [
 	{
 		title: 'Portfolio Personal',
 		description: 'Mi portfolio personal construido con Astro y Tailwind CSS',
-		image: '../../../public/imagen/m.webp',
+		image: '../../../public/images/m.webp',
 		technologies: ['Astro', 'Tailwind CSS', 'TypeScript'],
 		githubUrl: 'https://github.com/Reyneldis/portfolio',
 		liveUrl: 'https://reyneldis.dev',
@@ -20,7 +20,7 @@ const projects: Project[] = [
 	{
 		title: 'Portfolio Personal',
 		description: 'Mi portfolio personal construido con Astro y Tailwind CSS',
-		image: '../../../public/imagen/m.webp',
+		image: '../../../public/images/m.webp',
 		technologies: ['Astro', 'Tailwind CSS', 'TypeScript'],
 		githubUrl: 'https://github.com/Reyneldis/portfolio',
 		liveUrl: 'https://reyneldis.dev',
@@ -34,8 +34,8 @@ const projects: Project[] = [
 	<div class="grid gap-16 md:grid-cols-2">
 		{
 			projects.map((project, index) => (
-				<article class="relative group scroll-reveal" style={`animation-delay: ${index * 100}ms`}>
-					<div class="overflow-hidden relative rounded-xl">
+				<article class="group scroll-reveal relative" style={`animation-delay: ${index * 100}ms`}>
+					<div class="relative overflow-hidden rounded-xl">
 						<img
 							src={project.image}
 							alt={project.title}
@@ -45,11 +45,11 @@ const projects: Project[] = [
 							decoding="async"
 							class="aspect-[4/3] w-full object-cover transition-all duration-500 group-hover:scale-[1.02]"
 						/>
-						<div class="absolute inset-0 bg-gradient-to-t opacity-0 transition-all duration-500 from-black/40 via-black/0 to-black/0 group-hover:opacity-100" />
+						<div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-black/0 opacity-0 transition-all duration-500 group-hover:opacity-100" />
 					</div>
 
 					<div class="mt-6 space-y-3">
-						<div class="flex justify-between items-start">
+						<div class="flex items-start justify-between">
 							<h3 class="text-lg font-medium text-gray-900 dark:text-white">{project.title}</h3>
 							<div class="flex gap-3">
 								{project.githubUrl && (
