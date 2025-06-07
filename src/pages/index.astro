@@ -1,0 +1,170 @@
+---
+import Hero from '@/components/shared/Hero.astro';
+import Layout from '../layouts/Layout.astro';
+
+import About from '@/components/shared/About.astro';
+import SectionContainer from '@/components/shared/SectionContainer.astro';
+import TitleSection from '@/components/shared/TitleSection.astro';
+import Experiencia from '@/components/shared/Experiencia.astro';
+import { Briefcase, CodeIcon, User, ArrowUp } from 'lucide-react';
+import Projects from '@/components/shared/Projects.astro';
+import Contact from '@/components/shared/Contact.astro';
+---
+
+<script is:inline>
+	// Optimizar la detección del tema
+	(function () {
+		const getThemePreference = () => {
+			if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+				return localStorage.getItem('theme');
+			}
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		};
+
+		// Aplicar tema inmediatamente
+		document.documentElement.classList[getThemePreference() === 'dark' ? 'add' : 'remove']('dark');
+
+		// Observar cambios de tema de forma optimizada
+		if (typeof localStorage !== 'undefined') {
+			const observer = new MutationObserver(() => {
+				const isDark = document.documentElement.classList.contains('dark');
+				localStorage.setItem('theme', isDark ? 'dark' : 'light');
+			});
+
+			observer.observe(document.documentElement, {
+				attributes: true,
+				attributeFilter: ['class'],
+			});
+		}
+	})();
+</script>
+
+<Layout title="Portfolio Reyneldis">
+	<main class="px-4">
+		<SectionContainer class="py-4 md:py-36">
+			<Hero>
+				<slot />
+			</Hero>
+		</SectionContainer>
+
+		<div class="space-y-10">
+			<SectionContainer id="experiencia">
+				<TitleSection>
+					<Briefcase className="size-8" />
+					Experiencia labora
+				</TitleSection>
+				<Experiencia />
+			</SectionContainer>
+
+			<SectionContainer id="projects">
+				<TitleSection>
+					<CodeIcon className="size-7" />
+					Proyectos
+				</TitleSection>
+				<Projects />
+			</SectionContainer>
+
+			<SectionContainer id="about">
+				<TitleSection>
+					<User className="size-7" />
+					Sobre mí
+				</TitleSection>
+				<About />
+			</SectionContainer>
+
+			<SectionContainer id="contacto">
+				<Contact />
+			</SectionContainer>
+		</div>
+	</main>
+
+	<!-- Nuevo diseño del botón scroll to top -->
+	<button
+		id="scrollToTop"
+		class="fixed right-8 bottom-8 p-3 text-white bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg shadow-lg opacity-0 transition-all duration-300 hover:shadow-orange-500/25 dark:from-orange-500 dark:to-orange-600"
+		aria-label="Volver arriba"
+	>
+		<div class="relative">
+			<ArrowUp className="size-5" />
+			<div class="absolute inset-0 rounded-lg animate-pulse bg-white/20"></div>
+		</div>
+	</button>
+</Layout>
+
+<script>
+	// Optimizar el manejo del botón scroll to top
+	(function () {
+		const scrollToTopButton = document.getElementById('scrollToTop');
+		let ticking = false;
+
+		function updateScrollButton() {
+			if (window.scrollY > 300) {
+				scrollToTopButton?.classList.remove('opacity-0', 'translate-y-4', 'rotate-180');
+				scrollToTopButton?.classList.add('opacity-100', 'translate-y-0', 'rotate-0');
+			} else {
+				scrollToTopButton?.classList.remove('opacity-100', 'translate-y-0', 'rotate-0');
+				scrollToTopButton?.classList.add('opacity-0', 'translate-y-4', 'rotate-180');
+			}
+			ticking = false;
+		}
+
+		window.addEventListener('scroll', () => {
+			if (!ticking) {
+				window.requestAnimationFrame(updateScrollButton);
+				ticking = true;
+			}
+		});
+
+		scrollToTopButton?.addEventListener('click', () => {
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth',
+			});
+		});
+	})();
+</script>
+
+<style>
+	#scrollToTop {
+		z-index: 50;
+		transform: translateY(1rem) rotate(180deg);
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	#scrollToTop:hover {
+		transform: translateY(0) scale(1.05);
+	}
+
+	/* Efecto de brillo al hover */
+	#scrollToTop::before {
+		content: '';
+		position: absolute;
+		inset: -2px;
+		background: linear-gradient(45deg, #f97316, #fb923c, #f97316);
+		border-radius: 0.5rem;
+		z-index: -1;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	#scrollToTop:hover::before {
+		opacity: 1;
+	}
+
+	/* Efecto de pulso suave */
+	@keyframes softPulse {
+		0% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.05);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	#scrollToTop:hover {
+		animation: softPulse 2s infinite;
+	}
+</style>

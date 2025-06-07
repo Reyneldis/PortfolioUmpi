@@ -1,0 +1,280 @@
+---
+import Header from '@/components/shared/Header.astro';
+import Footer from '../components/shared/Footer.astro';
+
+// Cargar solo las fuentes necesarias inicialmente
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/600.css';
+
+import '../styles/global.css';
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content="Portfolio profesional de desarrollo web" />
+
+		<!-- Precargar recursos críticos -->
+		<link rel="preload" as="font" href="@fontsource/poppins/400.css" crossorigin />
+		<link rel="preload" as="image" href="/images/avatar.webp" type="image/webp" />
+
+		<!-- Cargar fuentes no críticas de forma asíncrona -->
+		<link
+			rel="preload"
+			as="style"
+			href="@fontsource/poppins/500.css"
+			onload="this.onload=null;this.rel='stylesheet'"
+		/>
+		<link
+			rel="preload"
+			as="style"
+			href="@fontsource/poppins/700.css"
+			onload="this.onload=null;this.rel='stylesheet'"
+		/>
+
+		<!-- Fallback para fuentes -->
+		<noscript>
+			<link rel="stylesheet" href="@fontsource/poppins/500.css" />
+			<link rel="stylesheet" href="@fontsource/poppins/700.css" />
+		</noscript>
+	</head>
+	<body class="relative text-black dark:text-white">
+		<div
+			class="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]"
+		>
+			<div
+				class="absolute top-0 right-0 bottom-0 left-0 bg-[radial-gradient(circle_800px_at_100%_200px,#d5c5ff,transparent)]"
+			>
+			</div>
+		</div>
+		<Header />
+		<slot />
+		<Footer />
+
+		<!-- Cargar scripts de forma optimizada -->
+		<script type="module">
+			// Cargar scripts no críticos de forma asíncrona
+			const loadNonCriticalScripts = async () => {
+				const { initApp } = await import('/src/scripts/main.js');
+				requestIdleCallback(() => {
+					initApp();
+				});
+			};
+
+			// Cargar scripts cuando el navegador esté inactivo
+			if ('requestIdleCallback' in window) {
+				requestIdleCallback(loadNonCriticalScripts);
+			} else {
+				setTimeout(loadNonCriticalScripts, 1000);
+			}
+		</script>
+
+		<style is:global>
+			:root {
+				color-scheme: light dark;
+				scroll-behavior: smooth;
+			}
+
+			body {
+				color: rgba(0, 0, 0, 0.9);
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+				overscroll-behavior: none;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				html {
+					scroll-behavior: auto;
+				}
+			}
+
+			@media (prefers-color-scheme: dark) {
+				body {
+					color: rgba(255, 255, 255, 0.9);
+				}
+			}
+
+			#header-nav {
+				animation: blur linear both 0.5s;
+				animation-timeline: scroll();
+				animation-range: 0 500px;
+			}
+
+			@keyframes blur {
+				to {
+					backdrop-filter: blur(20px);
+					border-width: 1px;
+					border-color: rgba(0, 0, 0);
+					padding: 0.25rem 0.75rem;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					background-color: rgb(229, 229, 229);
+					border-radius: 9999px;
+				}
+			}
+
+			@media (prefers-color-scheme: dark) {
+				@keyframes blur {
+					from {
+						border: 0px;
+					}
+					to {
+						box-shadow:
+							0px 5px 50px -5px rgba(0, 0, 0, 0.1),
+							0px 0px 0 1px rgba(0, 0, 0, 0.3);
+						background: rgba(0, 0, 0, 0.3);
+						backdrop-filter: blur(20px);
+						border-width: 1px;
+						border-color: rgba(0, 0, 0);
+						padding-left: 0.75rem;
+						padding-right: 0.75rem;
+						padding-top: 0.25rem;
+						padding-bottom: 0.25rem;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						background-color: rgba(0, 0, 0, 0.3);
+						border-radius: 9999px;
+					}
+				}
+			}
+
+			/* Animaciones globales */
+			.animate-fade-up {
+				animation: fadeUp 0.6s ease-out forwards;
+			}
+
+			.animate-fade-down {
+				animation: fadeDown 0.6s ease-out forwards;
+			}
+
+			.animate-fade-in {
+				animation: fadeIn 0.6s ease-out forwards;
+			}
+
+			.animate-slide-in {
+				animation: slideIn 0.6s ease-out forwards;
+			}
+
+			.animate-scale-in {
+				animation: scaleIn 0.6s ease-out forwards;
+			}
+
+			@keyframes fadeUp {
+				from {
+					opacity: 0;
+					transform: translateY(20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes fadeDown {
+				from {
+					opacity: 0;
+					transform: translateY(-20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+
+			@keyframes slideIn {
+				from {
+					opacity: 0;
+					transform: translateX(-20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateX(0);
+				}
+			}
+
+			@keyframes scaleIn {
+				from {
+					opacity: 0;
+					transform: scale(0.9);
+				}
+				to {
+					opacity: 1;
+					transform: scale(1);
+				}
+			}
+
+			/* Efectos de hover */
+			.hover-lift {
+				transition: transform 0.3s ease;
+			}
+
+			.hover-lift:hover {
+				transform: translateY(-4px);
+			}
+
+			.hover-scale {
+				transition: transform 0.3s ease;
+			}
+
+			.hover-scale:hover {
+				transform: scale(1.05);
+			}
+
+			/* Efectos de transición */
+			.transition-all {
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			/* Efectos de scroll */
+			.scroll-reveal {
+				opacity: 0;
+				transform: translateY(20px);
+				transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+			}
+
+			.scroll-reveal.visible {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		</style>
+
+		<script>
+			// Observador de intersección para animaciones de scroll
+			const observer = new IntersectionObserver(
+				entries => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add('visible');
+						}
+					});
+				},
+				{
+					threshold: 0.1,
+					rootMargin: '0px 0px -50px 0px',
+				}
+			);
+
+			// Observar elementos con la clase scroll-reveal
+			document.addEventListener('DOMContentLoaded', () => {
+				document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+			});
+		</script>
+	</body>
+</html>

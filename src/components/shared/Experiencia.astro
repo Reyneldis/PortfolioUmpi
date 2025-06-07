@@ -1,0 +1,101 @@
+---
+import { ExperienceItem } from './ExperienceItem';
+
+const EXPERIENCE = [
+	{
+		date: 'Actualmente...',
+		title: 'Trabajo Ingeniero Informático',
+		company: 'OICC',
+		description:
+			'Desarrollo de software y gestión de proyectos. Desarrollo de aplicaciones web, sistemas operativos y aplicaciones móviles.',
+	},
+	{
+		date: 'Septiembre 2021',
+		title: 'Responsable de Ciberseguridad',
+		company: 'OICC',
+		description:
+			'Control de acceso a los sistemas de información y gestión de la seguridad de la empresa.',
+	},
+];
+---
+
+<section class="flex flex-col gap-8">
+	<div class="relative mt-16 mb-4">
+		<ol class="relative">
+			{
+				EXPERIENCE.map((experience, index) => (
+					<li>
+						<ExperienceItem {...experience} index={index} client:load />
+					</li>
+				))
+			}
+		</ol>
+	</div>
+</section>
+
+<style>
+	/* Animaciones para móvil */
+	@media (max-width: 640px) {
+		section {
+			animation: fadeInUp 0.8s ease-out;
+		}
+
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+	}
+
+	/* Efectos de hover */
+	article {
+		transition: transform 0.3s ease;
+	}
+
+	article:hover {
+		transform: translateX(8px);
+	}
+
+	/* Efecto de la línea de tiempo */
+	article::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 2px;
+		background: linear-gradient(to bottom, #f97316, transparent);
+		opacity: 0.2;
+	}
+
+	/* Efecto del punto en la línea de tiempo */
+	article::after {
+		content: '';
+		position: absolute;
+		left: -4px;
+		top: 0;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: #f97316;
+		opacity: 0.2;
+		transition: all 0.3s ease;
+	}
+
+	article:hover::after {
+		opacity: 1;
+		transform: scale(1.2);
+	}
+
+	/* Ajustes para móvil */
+	@media (max-width: 640px) {
+		article {
+			padding-left: 1.5rem;
+		}
+	}
+</style>

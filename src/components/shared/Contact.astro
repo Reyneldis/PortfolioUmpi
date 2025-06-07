@@ -1,0 +1,90 @@
+---
+import { Contact2Icon } from 'lucide-react';
+import { ContactForm } from './ContactForm';
+---
+
+<section class="flex flex-col gap-16 py-24">
+	<div class="flex flex-col gap-4 text-center">
+		<h2 class="text-4xl font-bold text-gray-900 dark:text-white">Contacto</h2>
+		<p class="mx-auto max-w-xl text-lg text-gray-600 dark:text-gray-400">
+			¿Tienes alguna pregunta o quieres trabajar conmigo? ¡No dudes en contactarme!
+		</p>
+	</div>
+
+	<ContactForm client:load />
+</section>
+
+<script>
+	import emailjs from '@emailjs/browser';
+
+	document.addEventListener('DOMContentLoaded', () => {
+		const form = document.getElementById('contact-form') as HTMLFormElement;
+		if (!form) return;
+
+		form.addEventListener('submit', async e => {
+			e.preventDefault();
+
+			const nameInput = form.querySelector('#name') as HTMLInputElement;
+			const emailInput = form.querySelector('#email') as HTMLInputElement;
+			const messageInput = form.querySelector('#message') as HTMLTextAreaElement;
+
+			if (!nameInput || !emailInput || !messageInput) return;
+
+			const name = nameInput.value;
+			const email = emailInput.value;
+			const message = messageInput.value;
+
+			try {
+				await emailjs.send(
+					'service_bk9pph6',
+					'template_tzgurn2',
+					{
+						from_name: name,
+						from_email: email,
+						message: message,
+					},
+					'GzcfqV0vukzUdaIT4'
+				);
+
+				alert('¡Mensaje enviado con éxito!');
+				form.reset();
+			} catch (error) {
+				console.error('Error al enviar el mensaje:', error);
+				alert('Error al enviar el mensaje. Por favor, inténtalo de nuevo.');
+			}
+		});
+	});
+</script>
+
+<style>
+	/* Animaciones para móvil */
+	@media (max-width: 640px) {
+		section {
+			animation: fadeInUp 0.8s ease-out;
+		}
+
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+	}
+
+	/* Efectos de hover */
+	input:focus,
+	textarea:focus {
+		transform: translateY(-2px);
+	}
+
+	/* Ajustes para móvil */
+	@media (max-width: 640px) {
+		section {
+			padding: 3rem 1rem;
+		}
+	}
+</style>
