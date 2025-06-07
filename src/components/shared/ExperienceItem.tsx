@@ -34,7 +34,7 @@ export const ExperienceItem = ({
 				</div>
 
 				<p className="text-sm font-medium text-gray-600 dark:text-gray-300">{company}</p>
-				<p className="text-gray-600 dark:text-gray-400">{description}</p>
+				<p className="mb-8 text-gray-600 dark:text-gray-400">{description}</p>
 			</div>
 		</motion.article>
 	);

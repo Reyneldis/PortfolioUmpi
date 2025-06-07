@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export default function AnimatedFooter() {
 	return (
-		<footer className="overflow-hidden relative mt-16">
+		<footer className="overflow-hidden relative mt-10">
 			<motion.div
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
@@ -26,7 +26,6 @@ export default function AnimatedFooter() {
 						<h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600 dark:from-orange-400 dark:to-orange-500">
 							Reyneldis Umpierre
 						</h3>
-						<p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Ingeniero Informático</p>
 					</motion.div>
 
 					<motion.nav
@@ -56,7 +55,7 @@ export default function AnimatedFooter() {
 						className="text-center md:text-right"
 					>
 						<p className="text-sm text-gray-600 dark:text-gray-400">
-							© {new Date().getFullYear()} Todos los derechos reservados
+							© {new Date().getFullYear()} Casi todos los derechos reservados
 						</p>
 					</motion.div>
 				</div>
