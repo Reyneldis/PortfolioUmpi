@@ -43,7 +43,7 @@ export const ContactForm = () => {
 						name="name"
 						required
 						placeholder="Nombre"
-						className="py-3 w-full text-lg bg-transparent border-0 border-b border-gray-200 transition-all duration-300 outline-none placeholder:text-gray-400 focus:border-orange-400 dark:border-gray-700 dark:placeholder:text-gray-500 dark:focus:border-orange-400"
+						className="py-3 w-full text-lg text-black bg-transparent border-0 border-b border-gray-200 transition-all duration-300 outline-none placeholder:text-gray-400 focus:border-orange-400 dark:border-gray-700 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-orange-400"
 					/>
 				</motion.div>
 
@@ -60,7 +60,7 @@ export const ContactForm = () => {
 						name="email"
 						required
 						placeholder="Email"
-						className="py-3 w-full text-lg bg-transparent border-0 border-b border-gray-200 transition-all duration-300 outline-none placeholder:text-gray-400 focus:border-orange-400 dark:border-gray-700 dark:placeholder:text-gray-500 dark:focus:border-orange-400"
+						className="py-3 w-full text-lg text-black bg-transparent border-0 border-b border-gray-200 transition-all duration-300 outline-none placeholder:text-gray-400 focus:border-orange-400 dark:border-gray-700 dark:text-white/80 dark:placeholder:text-gray-500 dark:focus:border-orange-400"
 					/>
 				</motion.div>
 
@@ -77,7 +77,7 @@ export const ContactForm = () => {
 						rows={4}
 						required
 						placeholder="Mensaje"
-						className="py-3 w-full text-lg bg-transparent border-0 border-b border-gray-200 transition-all duration-300 outline-none resize-none placeholder:text-gray-400 focus:border-orange-400 dark:border-gray-700 dark:placeholder:text-gray-500 dark:focus:border-orange-400"
+						className="py-3 w-full text-lg text-black bg-transparent border-0 border-b border-gray-200 transition-all duration-300 outline-none resize-none placeholder:text-gray-400 focus:border-orange-400 dark:border-gray-700 dark:text-white/80 dark:placeholder:text-gray-500 dark:focus:border-orange-400"
 					></textarea>
 				</motion.div>
 
@@ -93,7 +93,7 @@ export const ContactForm = () => {
 					}}
 					whileTap={{ scale: 0.98 }}
 					type="submit"
-					className="py-4 w-full text-lg font-medium text-white bg-orange-400 rounded-full transition-all duration-300 hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-gray-900"
+					className="py-4 w-full text-lg font-medium bg-orange-400 rounded-full transition-all duration-300 text-white/80 hover:bg-orange-500 focus:ring-2 focus:ring-orange-400 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-gray-900"
 				>
 					Enviar mensaje
 				</motion.button>
